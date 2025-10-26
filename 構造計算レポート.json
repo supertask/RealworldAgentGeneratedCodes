@@ -1,0 +1,86 @@
+{
+  "design": {
+    "name": "サンプル構造設計",
+    "description": "シンプルな梁-柱構造のサンプル",
+    "metadata": {
+      "建物用途": "事務所",
+      "階数": 3,
+      "設計者": "構造計算システム"
+    }
+  },
+  "timestamp": "2025-10-26T08:46:53.198361",
+  "materials": [
+    {
+      "name": "SS400 (一般構造用圧延鋼材)",
+      "type": "鋼材",
+      "density": 7850,
+      "youngs_modulus": 205000000000.0,
+      "yield_strength": 245000000.0,
+      "allowable_stress": 163333333.33333334
+    }
+  ],
+  "elements": [
+    {
+      "name": "主梁-1",
+      "material": "SS400 (一般構造用圧延鋼材)",
+      "length": 6.0,
+      "cross_section_area": 0.01,
+      "self_weight": 4620.51,
+      "total_load": 8000
+    },
+    {
+      "name": "柱-1",
+      "material": "SS400 (一般構造用圧延鋼材)",
+      "length": 3.5,
+      "cross_section_area": 0.015,
+      "self_weight": 4042.9462500000004,
+      "total_load": 10000
+    }
+  ],
+  "results": [
+    {
+      "element_name": "主梁-1",
+      "element_type": "梁",
+      "max_stress": 7728452.448423132,
+      "allowable_stress": 163333333.33333334,
+      "stress_ratio": 0.04731705580667223,
+      "max_deflection": 0.0027703558536585366,
+      "is_safe": true,
+      "details": {
+        "element_type": "梁",
+        "support_type": "simple",
+        "total_load": 12620.51,
+        "max_moment": 18930.765,
+        "section_modulus": 0.002449489742783178,
+        "deflection_limit": 0.024,
+        "deflection_ratio": 0.11543149390243902
+      }
+    },
+    {
+      "element_name": "柱-1",
+      "element_type": "柱",
+      "max_stress": 936196.4166666667,
+      "allowable_stress": 163333333.33333334,
+      "stress_ratio": 0.005731814795918368,
+      "max_deflection": 0.0,
+      "is_safe": true,
+      "details": {
+        "element_type": "柱",
+        "total_load": 14042.94625,
+        "direct_stress": 936196.4166666667,
+        "euler_buckling_load": 24774721.2517141,
+        "buckling_stress": 1651648083.4476066,
+        "slenderness_ratio": 35.0,
+        "buckling_safety_factor": 1764.2110715701199,
+        "effective_length_factor": 1.0
+      }
+    }
+  ],
+  "summary": {
+    "total_elements": 2,
+    "safe_elements": 2,
+    "unsafe_elements": 0,
+    "max_stress_ratio": 0.04731705580667223,
+    "overall_safe": true
+  }
+}

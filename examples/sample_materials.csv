@@ -1,0 +1,4 @@
+name,material_type,density,youngs_modulus,yield_strength,ultimate_strength,safety_factor
+SS400,STEEL,7850,205e9,245e6,400e6,1.5
+C24,CONCRETE,2400,25e9,16e6,24e6,3.0
+SUGI,WOOD,400,7e9,20e6,30e6,2.0

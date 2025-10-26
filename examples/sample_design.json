@@ -1,0 +1,87 @@
+{
+  "name": "サンプル事務所ビル構造設計",
+  "description": "3階建て事務所ビルの構造設計例",
+  "materials": [
+    {
+      "name": "SS400",
+      "material_type": "STEEL",
+      "density": 7850,
+      "youngs_modulus": 205000000000,
+      "yield_strength": 245000000,
+      "ultimate_strength": 400000000,
+      "safety_factor": 1.5
+    }
+  ],
+  "elements": [
+    {
+      "name": "2階床梁-1",
+      "material_name": "SS400",
+      "length": 6.0,
+      "cross_section_area": 0.01,
+      "moment_of_inertia": 0.0001,
+      "loads": [
+        {
+          "load_type": "DEAD",
+          "magnitude": 8000,
+          "location": 3.0,
+          "description": "床スラブ、仕上げ材の重量"
+        },
+        {
+          "load_type": "LIVE",
+          "magnitude": 5000,
+          "location": 3.0,
+          "description": "事務所積載荷重 (2900N/m²)"
+        }
+      ]
+    },
+    {
+      "name": "1階柱-1",
+      "material_name": "SS400",
+      "length": 3.5,
+      "cross_section_area": 0.015,
+      "moment_of_inertia": 0.00015,
+      "loads": [
+        {
+          "load_type": "DEAD",
+          "magnitude": 25000,
+          "location": 3.5,
+          "description": "上階からの荷重"
+        },
+        {
+          "load_type": "LIVE",
+          "magnitude": 15000,
+          "location": 3.5,
+          "description": "上階の積載荷重"
+        }
+      ]
+    },
+    {
+      "name": "2階柱-1",
+      "material_name": "SS400",
+      "length": 3.5,
+      "cross_section_area": 0.012,
+      "moment_of_inertia": 0.00012,
+      "loads": [
+        {
+          "load_type": "DEAD",
+          "magnitude": 12000,
+          "location": 3.5,
+          "description": "屋根からの荷重"
+        },
+        {
+          "load_type": "LIVE",
+          "magnitude": 8000,
+          "location": 3.5,
+          "description": "屋根積載荷重"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "建物用途": "事務所",
+    "階数": 3,
+    "構造形式": "鉄骨造",
+    "設計者": "構造計算システム",
+    "作成日": "2025-10-26"
+  }
+}

@@ -1,0 +1,5 @@
+name,material_name,length,cross_section_area,moment_of_inertia
+主梁-1,SS400,6.0,0.01,0.0001
+主梁-2,SS400,5.0,0.008,0.00008
+柱-1,SS400,3.5,0.015,0.00015
+柱-2,SS400,3.5,0.012,0.00012

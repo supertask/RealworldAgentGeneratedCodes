@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>構造計算レポート - サンプル構造設計</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        .safe {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .unsafe {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .summary {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .summary-item {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+        }
+        .summary-label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>構造計算レポート</h1>
+        <p>サンプル構造設計</p>
+        <p>作成日時: 2025年10月26日 08:46:53</p>
+    </div>
+    
+    <div class="section">
+<h2>設計情報</h2>
+<p><strong>説明:</strong> シンプルな梁-柱構造のサンプル</p>
+<p><strong>構造要素数:</strong> 2</p>
+<p><strong>使用材料数:</strong> 1</p>
+</div>
+<div class="section">
+<h2>計算結果</h2>
+<table>
+<tr>
+<th>要素名</th><th>タイプ</th><th>最大応力(MPa)</th>
+<th>許容応力(MPa)</th><th>応力比</th><th>判定</th>
+</tr>
+<tr>
+<td>主梁-1</td>
+<td>梁</td>
+<td>7.73</td>
+<td>163.33</td>
+<td>4.73%</td>
+<td class="safe">✓ 安全</td>
+</tr>
+<tr>
+<td>柱-1</td>
+<td>柱</td>
+<td>0.94</td>
+<td>163.33</td>
+<td>0.57%</td>
+<td class="safe">✓ 安全</td>
+</tr>
+</table>
+</div>
+<div class="section">
+<h2>総合評価</h2>
+<div class="summary">
+<div class="summary-item"><span class="summary-label">総要素数:</span> 2</div>
+<div class="summary-item"><span class="summary-label">安全な要素:</span> 2</div>
+<div class="summary-item"><span class="summary-label">危険な要素:</span> 0</div>
+<div class="summary-item"><span class="summary-label">最大応力比:</span> 4.73%</div>
+<p class="safe" style="font-size: 18px; margin-top: 15px;">✓ 全ての要素が安全です</p>
+</div>
+</div>
+</body>
+</html>
