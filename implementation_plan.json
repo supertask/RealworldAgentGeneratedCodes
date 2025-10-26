@@ -1,177 +1,177 @@
 {
-  "project_name": "構造計算プログラム",
-  "description": "設計図と材料データを基にした構造計算システム",
-  "implementation_plan": {
-    "phases": [
+  "プロジェクト名": "構造計算プログラム",
+  "説明": "設計図と材料データを基にした構造計算システム",
+  "実装プラン": {
+    "フェーズ": [
       {
-        "phase_number": 1,
-        "phase_name": "プロジェクト基盤構築",
-        "description": "基本的なプロジェクト構造とユーティリティの実装",
-        "files": [
+        "フェーズ番号": 1,
+        "フェーズ名": "プロジェクト基盤構築",
+        "説明": "基本的なプロジェクト構造とユーティリティの実装",
+        "ファイル": [
           {
-            "file_path": "requirements.txt",
-            "role": "必要なPythonパッケージの依存関係を定義",
-            "content_description": "pandas, openpyxl, PyPDF2, ezdxf（DWG読み込み用）などのライブラリを記載",
-            "dependencies": []
+            "ファイルパス": "requirements.txt",
+            "役割": "必要なPythonパッケージの依存関係を定義",
+            "内容説明": "pandas, openpyxl, PyPDF2, ezdxf（DWG読み込み用）などのライブラリを記載",
+            "依存関係": []
           },
           {
-            "file_path": "config/settings.py",
-            "role": "アプリケーション全体の設定を管理",
-            "content_description": "ファイルパス、データ形式、計算パラメータなどの設定値",
-            "dependencies": []
+            "ファイルパス": "config/settings.py",
+            "役割": "アプリケーション全体の設定を管理",
+            "内容説明": "ファイルパス、データ形式、計算パラメータなどの設定値",
+            "依存関係": []
           },
           {
-            "file_path": "config/__init__.py",
-            "role": "configパッケージの初期化",
-            "content_description": "パッケージとして認識させるための空ファイルまたは設定のエクスポート",
-            "dependencies": []
+            "ファイルパス": "config/__init__.py",
+            "役割": "configパッケージの初期化",
+            "内容説明": "パッケージとして認識させるための空ファイルまたは設定のエクスポート",
+            "依存関係": []
           },
           {
-            "file_path": "utils/logger.py",
-            "role": "ログ管理ユーティリティ",
-            "content_description": "アプリケーション全体のログ記録機能を提供",
-            "dependencies": []
+            "ファイルパス": "utils/logger.py",
+            "役割": "ログ管理ユーティリティ",
+            "内容説明": "アプリケーション全体のログ記録機能を提供",
+            "依存関係": []
           },
           {
-            "file_path": "utils/file_handler.py",
-            "role": "ファイル操作の共通ユーティリティ",
-            "content_description": "ファイルの存在チェック、パス処理などの共通機能",
-            "dependencies": ["utils/logger.py"]
+            "ファイルパス": "utils/file_handler.py",
+            "役割": "ファイル操作の共通ユーティリティ",
+            "内容説明": "ファイルの存在チェック、パス処理などの共通機能",
+            "依存関係": ["utils/logger.py"]
           },
           {
-            "file_path": "utils/__init__.py",
-            "role": "utilsパッケージの初期化",
-            "content_description": "パッケージとして認識させるためのファイル",
-            "dependencies": []
+            "ファイルパス": "utils/__init__.py",
+            "役割": "utilsパッケージの初期化",
+            "内容説明": "パッケージとして認識させるためのファイル",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 2,
-        "phase_name": "データモデル定義",
-        "description": "材料データ、設計図情報などのデータ構造を定義",
-        "files": [
+        "フェーズ番号": 2,
+        "フェーズ名": "データモデル定義",
+        "説明": "材料データ、設計図情報などのデータ構造を定義",
+        "ファイル": [
           {
-            "file_path": "models/material.py",
-            "role": "材料データのデータモデル",
-            "content_description": "材料名、単位重量、コスト、強度特性などを保持するクラス",
-            "dependencies": []
+            "ファイルパス": "models/material.py",
+            "役割": "材料データのデータモデル",
+            "内容説明": "材料名、単位重量、コスト、強度特性などを保持するクラス",
+            "依存関係": []
           },
           {
-            "file_path": "models/design_drawing.py",
-            "role": "設計図データのデータモデル",
-            "content_description": "設計図のメタデータ、ファイルパス、図面情報を保持するクラス",
-            "dependencies": []
+            "ファイルパス": "models/design_drawing.py",
+            "役割": "設計図データのデータモデル",
+            "内容説明": "設計図のメタデータ、ファイルパス、図面情報を保持するクラス",
+            "依存関係": []
           },
           {
-            "file_path": "models/calculation_result.py",
-            "role": "計算結果のデータモデル",
-            "content_description": "構造計算の結果を保持するクラス",
-            "dependencies": []
+            "ファイルパス": "models/calculation_result.py",
+            "役割": "計算結果のデータモデル",
+            "内容説明": "構造計算の結果を保持するクラス",
+            "依存関係": []
           },
           {
-            "file_path": "models/__init__.py",
-            "role": "modelsパッケージの初期化",
-            "content_description": "データモデルクラスのエクスポート",
-            "dependencies": []
+            "ファイルパス": "models/__init__.py",
+            "役割": "modelsパッケージの初期化",
+            "内容説明": "データモデルクラスのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 3,
-        "phase_name": "設計図入力モジュール",
-        "description": "PDF、DWG形式の設計図を読み込む機能を実装",
-        "files": [
+        "フェーズ番号": 3,
+        "フェーズ名": "設計図入力モジュール",
+        "説明": "PDF、DWG形式の設計図を読み込む機能を実装",
+        "ファイル": [
           {
-            "file_path": "modules/drawing_input/pdf_reader.py",
-            "role": "PDF形式の設計図を読み込む",
-            "content_description": "PyPDF2を使用してPDFファイルからデータを抽出",
-            "dependencies": [
+            "ファイルパス": "modules/drawing_input/pdf_reader.py",
+            "役割": "PDF形式の設計図を読み込む",
+            "内容説明": "PyPDF2を使用してPDFファイルからデータを抽出",
+            "依存関係": [
               "models/design_drawing.py",
               "utils/logger.py",
               "utils/file_handler.py"
             ]
           },
           {
-            "file_path": "modules/drawing_input/dwg_reader.py",
-            "role": "DWG形式の設計図を読み込む",
-            "content_description": "ezdxfライブラリを使用してDWGファイルからデータを抽出",
-            "dependencies": [
+            "ファイルパス": "modules/drawing_input/dwg_reader.py",
+            "役割": "DWG形式の設計図を読み込む",
+            "内容説明": "ezdxfライブラリを使用してDWGファイルからデータを抽出",
+            "依存関係": [
               "models/design_drawing.py",
               "utils/logger.py",
               "utils/file_handler.py"
             ]
           },
           {
-            "file_path": "modules/drawing_input/drawing_manager.py",
-            "role": "複数の設計図を統合管理",
-            "content_description": "複数の設計図を一元管理し、形式に応じて適切なリーダーを選択",
-            "dependencies": [
+            "ファイルパス": "modules/drawing_input/drawing_manager.py",
+            "役割": "複数の設計図を統合管理",
+            "内容説明": "複数の設計図を一元管理し、形式に応じて適切なリーダーを選択",
+            "依存関係": [
               "modules/drawing_input/pdf_reader.py",
               "modules/drawing_input/dwg_reader.py",
               "models/design_drawing.py"
             ]
           },
           {
-            "file_path": "modules/drawing_input/__init__.py",
-            "role": "drawing_inputパッケージの初期化",
-            "content_description": "設計図入力モジュールのエクスポート",
-            "dependencies": []
+            "ファイルパス": "modules/drawing_input/__init__.py",
+            "役割": "drawing_inputパッケージの初期化",
+            "内容説明": "設計図入力モジュールのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 4,
-        "phase_name": "材料データ管理モジュール",
-        "description": "スプレッドシート形式の材料データを管理",
-        "files": [
+        "フェーズ番号": 4,
+        "フェーズ名": "材料データ管理モジュール",
+        "説明": "スプレッドシート形式の材料データを管理",
+        "ファイル": [
           {
-            "file_path": "modules/material_data/spreadsheet_reader.py",
-            "role": "Excel/CSV形式の材料データを読み込む",
-            "content_description": "pandasとopenpyxlを使用してスプレッドシートからデータを取得",
-            "dependencies": [
+            "ファイルパス": "modules/material_data/spreadsheet_reader.py",
+            "役割": "Excel/CSV形式の材料データを読み込む",
+            "内容説明": "pandasとopenpyxlを使用してスプレッドシートからデータを取得",
+            "依存関係": [
               "models/material.py",
               "utils/logger.py",
               "utils/file_handler.py"
             ]
           },
           {
-            "file_path": "modules/material_data/material_database.py",
-            "role": "材料データベースの管理",
-            "content_description": "材料データのCRUD操作、検索、フィルタリング機能を提供",
-            "dependencies": [
+            "ファイルパス": "modules/material_data/material_database.py",
+            "役割": "材料データベースの管理",
+            "内容説明": "材料データのCRUD操作、検索、フィルタリング機能を提供",
+            "依存関係": [
               "models/material.py",
               "modules/material_data/spreadsheet_reader.py",
               "utils/logger.py"
             ]
           },
           {
-            "file_path": "modules/material_data/second_sheet_sync.py",
-            "role": "セコンドシートとの連携機能",
-            "content_description": "セコンドシートの更新を検知し、材料データに反映",
-            "dependencies": [
+            "ファイルパス": "modules/material_data/second_sheet_sync.py",
+            "役割": "セコンドシートとの連携機能",
+            "内容説明": "セコンドシートの更新を検知し、材料データに反映",
+            "依存関係": [
               "modules/material_data/spreadsheet_reader.py",
               "modules/material_data/material_database.py"
             ]
           },
           {
-            "file_path": "modules/material_data/__init__.py",
-            "role": "material_dataパッケージの初期化",
-            "content_description": "材料データモジュールのエクスポート",
-            "dependencies": []
+            "ファイルパス": "modules/material_data/__init__.py",
+            "役割": "material_dataパッケージの初期化",
+            "内容説明": "材料データモジュールのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 5,
-        "phase_name": "データ紐付けモジュール",
-        "description": "設計図と材料データを関連付ける",
-        "files": [
+        "フェーズ番号": 5,
+        "フェーズ名": "データ紐付けモジュール",
+        "説明": "設計図と材料データを関連付ける",
+        "ファイル": [
           {
-            "file_path": "modules/data_binding/binding_engine.py",
-            "role": "設計図と材料データの紐付けロジック",
-            "content_description": "設計図に記載された材料情報を材料データベースとマッチング",
-            "dependencies": [
+            "ファイルパス": "modules/data_binding/binding_engine.py",
+            "役割": "設計図と材料データの紐付けロジック",
+            "内容説明": "設計図に記載された材料情報を材料データベースとマッチング",
+            "依存関係": [
               "models/design_drawing.py",
               "models/material.py",
               "modules/material_data/material_database.py",
@@ -179,23 +179,23 @@
             ]
           },
           {
-            "file_path": "modules/data_binding/__init__.py",
-            "role": "data_bindingパッケージの初期化",
-            "content_description": "データ紐付けモジュールのエクスポート",
-            "dependencies": []
+            "ファイルパス": "modules/data_binding/__init__.py",
+            "役割": "data_bindingパッケージの初期化",
+            "内容説明": "データ紐付けモジュールのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 6,
-        "phase_name": "構造計算エンジン",
-        "description": "実際の構造計算処理を実装",
-        "files": [
+        "フェーズ番号": 6,
+        "フェーズ名": "構造計算エンジン",
+        "説明": "実際の構造計算処理を実装",
+        "ファイル": [
           {
-            "file_path": "modules/calculation/structural_calculator.py",
-            "role": "構造計算のメインロジック",
-            "content_description": "設計図と材料データに基づいた構造計算アルゴリズムの実装",
-            "dependencies": [
+            "ファイルパス": "modules/calculation/structural_calculator.py",
+            "役割": "構造計算のメインロジック",
+            "内容説明": "設計図と材料データに基づいた構造計算アルゴリズムの実装",
+            "依存関係": [
               "models/design_drawing.py",
               "models/material.py",
               "models/calculation_result.py",
@@ -203,60 +203,60 @@
             ]
           },
           {
-            "file_path": "modules/calculation/formula_library.py",
-            "role": "計算式ライブラリ",
-            "content_description": "構造計算に使用する各種計算式を定義",
-            "dependencies": []
+            "ファイルパス": "modules/calculation/formula_library.py",
+            "役割": "計算式ライブラリ",
+            "内容説明": "構造計算に使用する各種計算式を定義",
+            "依存関係": []
           },
           {
-            "file_path": "modules/calculation/__init__.py",
-            "role": "calculationパッケージの初期化",
-            "content_description": "計算モジュールのエクスポート",
-            "dependencies": []
+            "ファイルパス": "modules/calculation/__init__.py",
+            "役割": "calculationパッケージの初期化",
+            "内容説明": "計算モジュールのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 7,
-        "phase_name": "結果出力モジュール",
-        "description": "計算結果を様々な形式で出力",
-        "files": [
+        "フェーズ番号": 7,
+        "フェーズ名": "結果出力モジュール",
+        "説明": "計算結果を様々な形式で出力",
+        "ファイル": [
           {
-            "file_path": "modules/output/report_generator.py",
-            "role": "計算結果レポートの生成",
-            "content_description": "計算結果をPDF、Excel、HTMLなどの形式で出力",
-            "dependencies": [
+            "ファイルパス": "modules/output/report_generator.py",
+            "役割": "計算結果レポートの生成",
+            "内容説明": "計算結果をPDF、Excel、HTMLなどの形式で出力",
+            "依存関係": [
               "models/calculation_result.py",
               "utils/logger.py",
               "utils/file_handler.py"
             ]
           },
           {
-            "file_path": "modules/output/export_manager.py",
-            "role": "エクスポート機能の管理",
-            "content_description": "出力形式の選択、ファイル保存の管理",
-            "dependencies": [
+            "ファイルパス": "modules/output/export_manager.py",
+            "役割": "エクスポート機能の管理",
+            "内容説明": "出力形式の選択、ファイル保存の管理",
+            "依存関係": [
               "modules/output/report_generator.py"
             ]
           },
           {
-            "file_path": "modules/output/__init__.py",
-            "role": "outputパッケージの初期化",
-            "content_description": "出力モジュールのエクスポート",
-            "dependencies": []
+            "ファイルパス": "modules/output/__init__.py",
+            "役割": "outputパッケージの初期化",
+            "内容説明": "出力モジュールのエクスポート",
+            "依存関係": []
           }
         ]
       },
       {
-        "phase_number": 8,
-        "phase_name": "メインアプリケーション",
-        "description": "全モジュールを統合したメインプログラム",
-        "files": [
+        "フェーズ番号": 8,
+        "フェーズ名": "メインアプリケーション",
+        "説明": "全モジュールを統合したメインプログラム",
+        "ファイル": [
           {
-            "file_path": "main.py",
-            "role": "アプリケーションのエントリーポイント",
-            "content_description": "コマンドライン引数の処理、全モジュールの初期化と実行フロー管理",
-            "dependencies": [
+            "ファイルパス": "main.py",
+            "役割": "アプリケーションのエントリーポイント",
+            "内容説明": "コマンドライン引数の処理、全モジュールの初期化と実行フロー管理",
+            "依存関係": [
               "config/settings.py",
               "modules/drawing_input/drawing_manager.py",
               "modules/material_data/material_database.py",
@@ -267,10 +267,10 @@
             ]
           },
           {
-            "file_path": "app.py",
-            "role": "アプリケーションの統合制御",
-            "content_description": "各モジュール間の連携を管理し、処理フローを制御",
-            "dependencies": [
+            "ファイルパス": "app.py",
+            "役割": "アプリケーションの統合制御",
+            "内容説明": "各モジュール間の連携を管理し、処理フローを制御",
+            "依存関係": [
               "main.py",
               "config/settings.py",
               "modules/drawing_input/drawing_manager.py",
@@ -283,70 +283,70 @@
         ]
       },
       {
-        "phase_number": 9,
-        "phase_name": "テストとドキュメント",
-        "description": "ユニットテスト、統合テスト、ドキュメント作成",
-        "files": [
+        "フェーズ番号": 9,
+        "フェーズ名": "テストとドキュメント",
+        "説明": "ユニットテスト、統合テスト、ドキュメント作成",
+        "ファイル": [
           {
-            "file_path": "tests/test_material.py",
-            "role": "材料データモジュールのテスト",
-            "content_description": "pytest使用した材料データ管理機能のユニットテスト",
-            "dependencies": [
+            "ファイルパス": "tests/test_material.py",
+            "役割": "材料データモジュールのテスト",
+            "内容説明": "pytest使用した材料データ管理機能のユニットテスト",
+            "依存関係": [
               "models/material.py",
               "modules/material_data/material_database.py"
             ]
           },
           {
-            "file_path": "tests/test_drawing_input.py",
-            "role": "設計図入力モジュールのテスト",
-            "content_description": "設計図読み込み機能のユニットテスト",
-            "dependencies": [
+            "ファイルパス": "tests/test_drawing_input.py",
+            "役割": "設計図入力モジュールのテスト",
+            "内容説明": "設計図読み込み機能のユニットテスト",
+            "依存関係": [
               "modules/drawing_input/pdf_reader.py",
               "modules/drawing_input/dwg_reader.py"
             ]
           },
           {
-            "file_path": "tests/test_calculation.py",
-            "role": "構造計算モジュールのテスト",
-            "content_description": "構造計算ロジックのユニットテスト",
-            "dependencies": [
+            "ファイルパス": "tests/test_calculation.py",
+            "役割": "構造計算モジュールのテスト",
+            "内容説明": "構造計算ロジックのユニットテスト",
+            "依存関係": [
               "modules/calculation/structural_calculator.py",
               "modules/calculation/formula_library.py"
             ]
           },
           {
-            "file_path": "tests/test_integration.py",
-            "role": "統合テスト",
-            "content_description": "全モジュールを統合した処理フローのテスト",
-            "dependencies": [
+            "ファイルパス": "tests/test_integration.py",
+            "役割": "統合テスト",
+            "内容説明": "全モジュールを統合した処理フローのテスト",
+            "依存関係": [
               "app.py",
               "main.py"
             ]
           },
           {
-            "file_path": "tests/__init__.py",
-            "role": "testsパッケージの初期化",
-            "content_description": "テストパッケージの初期化",
-            "dependencies": []
+            "ファイルパス": "tests/__init__.py",
+            "役割": "testsパッケージの初期化",
+            "内容説明": "テストパッケージの初期化",
+            "依存関係": []
           },
           {
-            "file_path": "README.md",
-            "role": "プロジェクトのドキュメント",
-            "content_description": "プロジェクトの概要、インストール方法、使用方法を記載",
-            "dependencies": []
+            "ファイルパス": "README.md",
+            "役割": "プロジェクトのドキュメント",
+            "内容説明": "プロジェクトの概要、インストール方法、使用方法を記載",
+            "依存関係": []
           },
           {
-            "file_path": ".gitignore",
-            "role": "Gitで無視するファイルの指定",
-            "content_description": "__pycache__、venv、データファイルなどを除外",
-            "dependencies": []
+            "ファイルパス": ".gitignore",
+            "役割": "Gitで無視するファイルの指定",
+            "内容説明": "__pycache__、venv、データファイルなどを除外",
+            "依存関係": []
           }
         ]
       }
     ],
-    "directory_structure": {
-      "root": "/workspace",
-      "folders": [
+    "ディレクトリ構造": {
+      "ルート": "/workspace",
+      "フォルダ一覧": [
         "config",
         "models",
         "modules/drawing_input",
@@ -362,64 +362,64 @@
         "etc/tmp"
       ]
     },
-    "implementation_order": [
+    "実装順序": [
       {
-        "step": 1,
-        "phase": "プロジェクト基盤構築",
-        "description": "基本構造とユーティリティを最初に実装",
-        "reason": "他のモジュールが依存する共通機能を提供"
+        "ステップ": 1,
+        "フェーズ": "プロジェクト基盤構築",
+        "説明": "基本構造とユーティリティを最初に実装",
+        "理由": "他のモジュールが依存する共通機能を提供"
       },
       {
-        "step": 2,
-        "phase": "データモデル定義",
-        "description": "データ構造を定義",
-        "reason": "全モジュールがこれらのデータモデルを使用"
+        "ステップ": 2,
+        "フェーズ": "データモデル定義",
+        "説明": "データ構造を定義",
+        "理由": "全モジュールがこれらのデータモデルを使用"
       },
       {
-        "step": 3,
-        "phase": "設計図入力モジュール",
-        "description": "設計図の読み込み機能を実装",
-        "reason": "入力データの取得が最優先"
+        "ステップ": 3,
+        "フェーズ": "設計図入力モジュール",
+        "説明": "設計図の読み込み機能を実装",
+        "理由": "入力データの取得が最優先"
       },
       {
-        "step": 4,
-        "phase": "材料データ管理モジュール",
-        "description": "材料データの管理機能を実装",
-        "reason": "設計図と並行して必要な入力データ"
+        "ステップ": 4,
+        "フェーズ": "材料データ管理モジュール",
+        "説明": "材料データの管理機能を実装",
+        "理由": "設計図と並行して必要な入力データ"
       },
       {
-        "step": 5,
-        "phase": "データ紐付けモジュール",
-        "description": "設計図と材料データの関連付け",
-        "reason": "入力データが揃った後に紐付けを実装"
+        "ステップ": 5,
+        "フェーズ": "データ紐付けモジュール",
+        "説明": "設計図と材料データの関連付け",
+        "理由": "入力データが揃った後に紐付けを実装"
       },
       {
-        "step": 6,
-        "phase": "構造計算エンジン",
-        "description": "計算ロジックの実装",
-        "reason": "紐付けされたデータを使用して計算を実行"
+        "ステップ": 6,
+        "フェーズ": "構造計算エンジン",
+        "説明": "計算ロジックの実装",
+        "理由": "紐付けされたデータを使用して計算を実行"
       },
       {
-        "step": 7,
-        "phase": "結果出力モジュール",
-        "description": "計算結果の出力機能を実装",
-        "reason": "計算結果を受け取って出力"
+        "ステップ": 7,
+        "フェーズ": "結果出力モジュール",
+        "説明": "計算結果の出力機能を実装",
+        "理由": "計算結果を受け取って出力"
       },
       {
-        "step": 8,
-        "phase": "メインアプリケーション",
-        "description": "全モジュールを統合",
-        "reason": "全機能が揃った後に統合"
+        "ステップ": 8,
+        "フェーズ": "メインアプリケーション",
+        "説明": "全モジュールを統合",
+        "理由": "全機能が揃った後に統合"
       },
       {
-        "step": 9,
-        "phase": "テストとドキュメント",
-        "description": "テストとドキュメント作成",
-        "reason": "実装完了後にテストとドキュメント化"
+        "ステップ": 9,
+        "フェーズ": "テストとドキュメント",
+        "説明": "テストとドキュメント作成",
+        "理由": "実装完了後にテストとドキュメント化"
       }
     ],
-    "dependencies_summary": {
-      "external_libraries": [
+    "依存関係のまとめ": {
+      "外部ライブラリ": [
         "pandas - スプレッドシートデータの処理",
         "openpyxl - Excel形式の読み書き",
         "PyPDF2 - PDFファイルの読み込み",
@@ -428,28 +428,28 @@
         "reportlab - PDFレポート生成",
         "jinja2 - HTMLテンプレート処理"
       ],
-      "internal_dependencies": {
-        "layer_1": ["config", "utils"],
-        "layer_2": ["models"],
-        "layer_3": ["modules/drawing_input", "modules/material_data"],
-        "layer_4": ["modules/data_binding"],
-        "layer_5": ["modules/calculation"],
-        "layer_6": ["modules/output"],
-        "layer_7": ["app", "main"]
+      "内部依存関係": {
+        "レイヤー1": ["config", "utils"],
+        "レイヤー2": ["models"],
+        "レイヤー3": ["modules/drawing_input", "modules/material_data"],
+        "レイヤー4": ["modules/data_binding"],
+        "レイヤー5": ["modules/calculation"],
+        "レイヤー6": ["modules/output"],
+        "レイヤー7": ["app", "main"]
       }
     },
-    "total_files": 42,
-    "estimated_development_time": {
-      "phase_1": "3-5日",
-      "phase_2": "2-3日",
-      "phase_3": "5-7日",
-      "phase_4": "5-7日",
-      "phase_5": "3-5日",
-      "phase_6": "10-14日",
-      "phase_7": "5-7日",
-      "phase_8": "3-5日",
-      "phase_9": "7-10日",
-      "total": "43-63日（約2-3ヶ月）"
+    "総ファイル数": 42,
+    "推定開発期間": {
+      "フェーズ1": "3-5日",
+      "フェーズ2": "2-3日",
+      "フェーズ3": "5-7日",
+      "フェーズ4": "5-7日",
+      "フェーズ5": "3-5日",
+      "フェーズ6": "10-14日",
+      "フェーズ7": "5-7日",
+      "フェーズ8": "3-5日",
+      "フェーズ9": "7-10日",
+      "合計": "43-63日（約2-3ヶ月）"
     }
   }
 }
