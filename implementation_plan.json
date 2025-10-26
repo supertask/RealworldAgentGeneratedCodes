@@ -1,0 +1,493 @@
+{
+  "project_name": "構造計算プログラム",
+  "version": "1.0.0",
+  "implementation_plan": {
+    "overview": {
+      "description": "設計図と材料データを基にした構造計算を行うプログラム",
+      "target_os": ["Windows", "macOS", "Linux"],
+      "programming_language": "Python 3.8+",
+      "development_phases": [
+        "設計フェーズ",
+        "開発フェーズ",
+        "テストフェーズ"
+      ]
+    },
+    "directory_structure": {
+      "src/": "ソースコードディレクトリ",
+      "src/core/": "コア機能モジュール",
+      "src/io/": "入出力処理モジュール",
+      "src/calculation/": "構造計算モジュール",
+      "src/data/": "データ管理モジュール",
+      "src/utils/": "ユーティリティモジュール",
+      "tests/": "テストコード",
+      "docs/": "ドキュメント",
+      "data/": "サンプルデータ",
+      "config/": "設定ファイル",
+      "etc/tmp/": "一時ファイル保存場所"
+    },
+    "files": [
+      {
+        "id": 1,
+        "file_path": "requirements.txt",
+        "role": "依存パッケージ管理（pandas, openpyxl, PyPDF2, ezdxfなど）",
+        "implementation_order": 1,
+        "dependencies": [],
+        "priority": "high",
+        "description": "プロジェクトで使用する外部ライブラリの管理"
+      },
+      {
+        "id": 2,
+        "file_path": "setup.py",
+        "role": "パッケージセットアップとインストール設定",
+        "implementation_order": 2,
+        "dependencies": [1],
+        "priority": "high",
+        "description": "プロジェクトのインストールと配布設定"
+      },
+      {
+        "id": 3,
+        "file_path": "config/settings.py",
+        "role": "アプリケーション全体の設定管理",
+        "implementation_order": 3,
+        "dependencies": [],
+        "priority": "high",
+        "description": "ファイルパス、定数、デフォルト値の管理"
+      },
+      {
+        "id": 4,
+        "file_path": "src/__init__.py",
+        "role": "srcパッケージの初期化",
+        "implementation_order": 4,
+        "dependencies": [],
+        "priority": "high",
+        "description": "パッケージとしてのsrcディレクトリの定義"
+      },
+      {
+        "id": 5,
+        "file_path": "src/utils/__init__.py",
+        "role": "utilsパッケージの初期化",
+        "implementation_order": 5,
+        "dependencies": [4],
+        "priority": "medium",
+        "description": "ユーティリティモジュールのパッケージ化"
+      },
+      {
+        "id": 6,
+        "file_path": "src/utils/logger.py",
+        "role": "ログ出力機能",
+        "implementation_order": 6,
+        "dependencies": [5],
+        "priority": "high",
+        "description": "統一されたログ管理とエラートラッキング"
+      },
+      {
+        "id": 7,
+        "file_path": "src/utils/validators.py",
+        "role": "入力データの検証機能",
+        "implementation_order": 7,
+        "dependencies": [5, 6],
+        "priority": "high",
+        "description": "ファイル形式、データ形式の妥当性チェック"
+      },
+      {
+        "id": 8,
+        "file_path": "src/utils/file_handler.py",
+        "role": "ファイル操作の共通機能",
+        "implementation_order": 8,
+        "dependencies": [5, 6],
+        "priority": "high",
+        "description": "ファイルの読み書き、パス管理の共通処理"
+      },
+      {
+        "id": 9,
+        "file_path": "src/io/__init__.py",
+        "role": "ioパッケージの初期化",
+        "implementation_order": 9,
+        "dependencies": [4],
+        "priority": "medium",
+        "description": "入出力モジュールのパッケージ化"
+      },
+      {
+        "id": 10,
+        "file_path": "src/io/pdf_reader.py",
+        "role": "PDF形式の設計図読み込み",
+        "implementation_order": 10,
+        "dependencies": [9, 6, 7],
+        "priority": "high",
+        "description": "PDFファイルからテキストと図面情報を抽出"
+      },
+      {
+        "id": 11,
+        "file_path": "src/io/dwg_reader.py",
+        "role": "DWG形式の設計図読み込み",
+        "implementation_order": 11,
+        "dependencies": [9, 6, 7],
+        "priority": "high",
+        "description": "CAD図面（DWG/DXF）の読み込みと解析"
+      },
+      {
+        "id": 12,
+        "file_path": "src/io/blueprint_loader.py",
+        "role": "設計図の統合ローダー",
+        "implementation_order": 12,
+        "dependencies": [9, 10, 11],
+        "priority": "high",
+        "description": "複数形式の設計図を統一的に処理"
+      },
+      {
+        "id": 13,
+        "file_path": "src/io/excel_reader.py",
+        "role": "Excelファイルの読み込み",
+        "implementation_order": 13,
+        "dependencies": [9, 6, 7],
+        "priority": "high",
+        "description": "材料データシートの読み込みと解析"
+      },
+      {
+        "id": 14,
+        "file_path": "src/io/export_handler.py",
+        "role": "計算結果の出力処理",
+        "implementation_order": 14,
+        "dependencies": [9, 6, 8],
+        "priority": "medium",
+        "description": "結果のExcel、PDF、JSON形式での出力"
+      },
+      {
+        "id": 15,
+        "file_path": "src/data/__init__.py",
+        "role": "dataパッケージの初期化",
+        "implementation_order": 15,
+        "dependencies": [4],
+        "priority": "medium",
+        "description": "データ管理モジュールのパッケージ化"
+      },
+      {
+        "id": 16,
+        "file_path": "src/data/material.py",
+        "role": "材料データクラス定義",
+        "implementation_order": 16,
+        "dependencies": [15, 6],
+        "priority": "high",
+        "description": "材料の属性（名称、重量、コスト、強度）を管理"
+      },
+      {
+        "id": 17,
+        "file_path": "src/data/material_database.py",
+        "role": "材料データベース管理",
+        "implementation_order": 17,
+        "dependencies": [15, 16, 13],
+        "priority": "high",
+        "description": "材料データの保存、検索、更新機能"
+      },
+      {
+        "id": 18,
+        "file_path": "src/data/blueprint.py",
+        "role": "設計図データクラス定義",
+        "implementation_order": 18,
+        "dependencies": [15, 6],
+        "priority": "high",
+        "description": "設計図の構造と属性を管理"
+      },
+      {
+        "id": 19,
+        "file_path": "src/data/sheet_linker.py",
+        "role": "データシート連携管理",
+        "implementation_order": 19,
+        "dependencies": [15, 16, 17],
+        "priority": "high",
+        "description": "材料データとセカンドシートの紐付け処理"
+      },
+      {
+        "id": 20,
+        "file_path": "src/core/__init__.py",
+        "role": "coreパッケージの初期化",
+        "implementation_order": 20,
+        "dependencies": [4],
+        "priority": "medium",
+        "description": "コア機能モジュールのパッケージ化"
+      },
+      {
+        "id": 21,
+        "file_path": "src/core/project.py",
+        "role": "プロジェクト管理クラス",
+        "implementation_order": 21,
+        "dependencies": [20, 17, 18],
+        "priority": "high",
+        "description": "設計図と材料データを統合管理"
+      },
+      {
+        "id": 22,
+        "file_path": "src/calculation/__init__.py",
+        "role": "calculationパッケージの初期化",
+        "implementation_order": 22,
+        "dependencies": [4],
+        "priority": "medium",
+        "description": "構造計算モジュールのパッケージ化"
+      },
+      {
+        "id": 23,
+        "file_path": "src/calculation/structural_calculator.py",
+        "role": "構造計算エンジン",
+        "implementation_order": 23,
+        "dependencies": [22, 16, 18],
+        "priority": "high",
+        "description": "強度、応力、変形などの構造計算を実行"
+      },
+      {
+        "id": 24,
+        "file_path": "src/calculation/weight_calculator.py",
+        "role": "重量計算機能",
+        "implementation_order": 24,
+        "dependencies": [22, 16, 18],
+        "priority": "medium",
+        "description": "材料データと設計図から総重量を計算"
+      },
+      {
+        "id": 25,
+        "file_path": "src/calculation/cost_calculator.py",
+        "role": "コスト計算機能",
+        "implementation_order": 25,
+        "dependencies": [22, 16, 18],
+        "priority": "medium",
+        "description": "材料コストと施工コストの積算"
+      },
+      {
+        "id": 26,
+        "file_path": "src/calculation/report_generator.py",
+        "role": "計算結果レポート生成",
+        "implementation_order": 26,
+        "dependencies": [22, 23, 24, 25],
+        "priority": "medium",
+        "description": "計算結果をまとめたレポートの作成"
+      },
+      {
+        "id": 27,
+        "file_path": "src/main.py",
+        "role": "メインプログラム（エントリーポイント）",
+        "implementation_order": 27,
+        "dependencies": [21, 12, 17, 23, 26, 14],
+        "priority": "high",
+        "description": "全モジュールを統合し、プログラムの実行フロー制御"
+      },
+      {
+        "id": 28,
+        "file_path": "src/cli.py",
+        "role": "コマンドラインインターフェース",
+        "implementation_order": 28,
+        "dependencies": [27],
+        "priority": "medium",
+        "description": "CLIからの操作を可能にする"
+      },
+      {
+        "id": 29,
+        "file_path": "tests/__init__.py",
+        "role": "testsパッケージの初期化",
+        "implementation_order": 29,
+        "dependencies": [],
+        "priority": "medium",
+        "description": "テストモジュールのパッケージ化"
+      },
+      {
+        "id": 30,
+        "file_path": "tests/test_material.py",
+        "role": "材料データのユニットテスト",
+        "implementation_order": 30,
+        "dependencies": [29, 16, 17],
+        "priority": "high",
+        "description": "材料クラスとデータベースの動作確認"
+      },
+      {
+        "id": 31,
+        "file_path": "tests/test_io.py",
+        "role": "入出力機能のユニットテスト",
+        "implementation_order": 31,
+        "dependencies": [29, 10, 11, 13],
+        "priority": "high",
+        "description": "ファイル読み込み機能の正確性検証"
+      },
+      {
+        "id": 32,
+        "file_path": "tests/test_calculation.py",
+        "role": "構造計算のユニットテスト",
+        "implementation_order": 32,
+        "dependencies": [29, 23, 24, 25],
+        "priority": "high",
+        "description": "計算ロジックの精度と正確性検証"
+      },
+      {
+        "id": 33,
+        "file_path": "tests/test_integration.py",
+        "role": "統合テスト",
+        "implementation_order": 33,
+        "dependencies": [29, 27],
+        "priority": "high",
+        "description": "全体的なワークフローの動作確認"
+      },
+      {
+        "id": 34,
+        "file_path": "data/sample_materials.xlsx",
+        "role": "サンプル材料データ",
+        "implementation_order": 34,
+        "dependencies": [],
+        "priority": "low",
+        "description": "テスト用の材料データサンプル"
+      },
+      {
+        "id": 35,
+        "file_path": "data/sample_blueprint.pdf",
+        "role": "サンプル設計図（PDF）",
+        "implementation_order": 35,
+        "dependencies": [],
+        "priority": "low",
+        "description": "テスト用の設計図サンプル"
+      },
+      {
+        "id": 36,
+        "file_path": "README.md",
+        "role": "プロジェクト概要と使用方法",
+        "implementation_order": 36,
+        "dependencies": [],
+        "priority": "medium",
+        "description": "インストール手順、使い方、機能説明"
+      },
+      {
+        "id": 37,
+        "file_path": "docs/api_reference.md",
+        "role": "API仕様書",
+        "implementation_order": 37,
+        "dependencies": [],
+        "priority": "low",
+        "description": "各モジュールと関数のAPI詳細"
+      },
+      {
+        "id": 38,
+        "file_path": "docs/user_guide.md",
+        "role": "ユーザーガイド",
+        "implementation_order": 38,
+        "dependencies": [],
+        "priority": "low",
+        "description": "エンドユーザー向けの使用説明書"
+      },
+      {
+        "id": 39,
+        "file_path": ".gitignore",
+        "role": "Git除外ファイル設定",
+        "implementation_order": 39,
+        "dependencies": [],
+        "priority": "medium",
+        "description": "バージョン管理から除外するファイルの定義"
+      }
+    ],
+    "implementation_phases": [
+      {
+        "phase": 1,
+        "name": "環境セットアップ",
+        "description": "プロジェクトの基本構造と依存関係の準備",
+        "files": [1, 2, 3, 39],
+        "estimated_time": "1-2日"
+      },
+      {
+        "phase": 2,
+        "name": "基礎モジュール開発",
+        "description": "共通ユーティリティとログ機能の実装",
+        "files": [4, 5, 6, 7, 8],
+        "estimated_time": "3-5日"
+      },
+      {
+        "phase": 3,
+        "name": "データモデル開発",
+        "description": "材料と設計図のデータ構造定義",
+        "files": [15, 16, 17, 18, 19],
+        "estimated_time": "5-7日"
+      },
+      {
+        "phase": 4,
+        "name": "入出力機能開発",
+        "description": "ファイル読み込みと出力機能の実装",
+        "files": [9, 10, 11, 12, 13, 14],
+        "estimated_time": "7-10日"
+      },
+      {
+        "phase": 5,
+        "name": "コア機能開発",
+        "description": "プロジェクト管理機能の実装",
+        "files": [20, 21],
+        "estimated_time": "3-5日"
+      },
+      {
+        "phase": 6,
+        "name": "計算エンジン開発",
+        "description": "構造計算と各種計算機能の実装",
+        "files": [22, 23, 24, 25, 26],
+        "estimated_time": "10-14日"
+      },
+      {
+        "phase": 7,
+        "name": "メインプログラム開発",
+        "description": "統合とCLIの実装",
+        "files": [27, 28],
+        "estimated_time": "3-5日"
+      },
+      {
+        "phase": 8,
+        "name": "テスト開発",
+        "description": "ユニットテストと統合テストの実装",
+        "files": [29, 30, 31, 32, 33],
+        "estimated_time": "7-10日"
+      },
+      {
+        "phase": 9,
+        "name": "ドキュメント作成",
+        "description": "各種ドキュメントとサンプルデータの準備",
+        "files": [34, 35, 36, 37, 38],
+        "estimated_time": "3-5日"
+      }
+    ],
+    "dependencies_graph": {
+      "description": "主要な依存関係",
+      "layers": [
+        {
+          "layer": 0,
+          "name": "基盤レイヤー",
+          "modules": ["requirements.txt", "config/settings.py", "utils"]
+        },
+        {
+          "layer": 1,
+          "name": "データレイヤー",
+          "modules": ["data/material.py", "data/blueprint.py"]
+        },
+        {
+          "layer": 2,
+          "name": "I/Oレイヤー",
+          "modules": ["io/pdf_reader.py", "io/dwg_reader.py", "io/excel_reader.py", "data/material_database.py"]
+        },
+        {
+          "layer": 3,
+          "name": "ビジネスロジックレイヤー",
+          "modules": ["core/project.py", "calculation/*"]
+        },
+        {
+          "layer": 4,
+          "name": "アプリケーションレイヤー",
+          "modules": ["main.py", "cli.py"]
+        }
+      ]
+    },
+    "technology_stack": {
+      "core": "Python 3.8+",
+      "pdf_processing": "PyPDF2, pdfplumber",
+      "cad_processing": "ezdxf",
+      "excel_processing": "openpyxl, pandas",
+      "calculation": "numpy, scipy",
+      "testing": "pytest, unittest",
+      "logging": "logging (標準ライブラリ)"
+    },
+    "development_guidelines": {
+      "coding_style": "PEP 8準拠",
+      "documentation": "Docstring（Google style）",
+      "version_control": "Git",
+      "testing_coverage": "80%以上を目標",
+      "error_handling": "全ての公開APIで例外処理を実装"
+    }
+  }
+}
