@@ -1,0 +1,530 @@
+{
+  "project_name": "構造計算プログラム",
+  "description": "非専門家でも理解しやすい構造計算プログラムの開発",
+  "version": "1.0.0",
+  "implementation_phases": [
+    {
+      "phase": 1,
+      "name": "プロジェクト基盤構築",
+      "description": "プロジェクトの基本構造とコア機能の準備",
+      "files": [
+        {
+          "path": "README.md",
+          "role": "プロジェクトの概要、使用方法、インストール手順を説明",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "requirements.txt",
+          "role": "Pythonパッケージの依存関係を管理",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "setup.py",
+          "role": "パッケージのインストールと配布設定",
+          "dependencies": ["requirements.txt"],
+          "priority": "medium"
+        },
+        {
+          "path": "config/settings.py",
+          "role": "アプリケーション全体の設定管理（定数、パス、デフォルト値等）",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "config/__init__.py",
+          "role": "configモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "データモデル定義",
+      "description": "材料情報、設計図などの基本データ構造を定義",
+      "files": [
+        {
+          "path": "src/__init__.py",
+          "role": "srcモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/models/__init__.py",
+          "role": "modelsモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/models/material.py",
+          "role": "材料情報のデータモデル（材質、強度、密度等）",
+          "dependencies": ["src/models/__init__.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/models/design.py",
+          "role": "設計図のデータモデル（寸法、形状、配置等）",
+          "dependencies": ["src/models/__init__.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/models/structure.py",
+          "role": "構造全体のデータモデル（要素の組み合わせ）",
+          "dependencies": ["src/models/__init__.py", "src/models/design.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/models/calculation_result.py",
+          "role": "計算結果のデータモデル（応力、変形、安全率等）",
+          "dependencies": ["src/models/__init__.py"],
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "データ入力パーサー開発",
+      "description": "スプレッドシートとマジックSP形式のデータ読み込み機能",
+      "files": [
+        {
+          "path": "src/parsers/__init__.py",
+          "role": "parsersモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/parsers/base_parser.py",
+          "role": "パーサーの基底クラス（共通インターフェース定義）",
+          "dependencies": ["src/parsers/__init__.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/parsers/spreadsheet_parser.py",
+          "role": "スプレッドシート形式（Excel, CSV）のデータパーサー",
+          "dependencies": ["src/parsers/base_parser.py", "src/models/material.py", "src/models/design.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/parsers/magic_sp_parser.py",
+          "role": "マジックSP形式のデータパーサー",
+          "dependencies": ["src/parsers/base_parser.py", "src/models/material.py", "src/models/design.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/parsers/parser_factory.py",
+          "role": "ファイル形式に応じて適切なパーサーを選択",
+          "dependencies": ["src/parsers/spreadsheet_parser.py", "src/parsers/magic_sp_parser.py"],
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "データ検証機能開発",
+      "description": "入力データの妥当性チェックとエラー検出",
+      "files": [
+        {
+          "path": "src/validators/__init__.py",
+          "role": "validatorsモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/validators/material_validator.py",
+          "role": "材料情報の検証（値の範囲、必須項目等）",
+          "dependencies": ["src/validators/__init__.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/validators/design_validator.py",
+          "role": "設計図の検証（寸法の整合性、物理的妥当性等）",
+          "dependencies": ["src/validators/__init__.py", "src/models/design.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/validators/structure_validator.py",
+          "role": "構造全体の検証（要素間の接続、境界条件等）",
+          "dependencies": ["src/validators/__init__.py", "src/models/structure.py"],
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "構造計算エンジン開発",
+      "description": "実際の構造計算を行うコアロジック",
+      "files": [
+        {
+          "path": "src/calculators/__init__.py",
+          "role": "calculatorsモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/base_calculator.py",
+          "role": "計算機の基底クラス（共通インターフェース定義）",
+          "dependencies": ["src/calculators/__init__.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/stress_calculator.py",
+          "role": "応力計算（引張、圧縮、せん断、曲げ等）",
+          "dependencies": ["src/calculators/base_calculator.py", "src/models/structure.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/deformation_calculator.py",
+          "role": "変形計算（たわみ、伸び等）",
+          "dependencies": ["src/calculators/base_calculator.py", "src/models/structure.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/safety_calculator.py",
+          "role": "安全率計算と判定",
+          "dependencies": ["src/calculators/stress_calculator.py", "src/models/material.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/load_calculator.py",
+          "role": "荷重計算（自重、積載荷重、風荷重等）",
+          "dependencies": ["src/calculators/base_calculator.py", "src/models/structure.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/calculators/calculation_engine.py",
+          "role": "各計算機を統合して一連の構造計算を実行",
+          "dependencies": [
+            "src/calculators/stress_calculator.py",
+            "src/calculators/deformation_calculator.py",
+            "src/calculators/safety_calculator.py",
+            "src/calculators/load_calculator.py"
+          ],
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "name": "結果出力機能開発",
+      "description": "計算結果の出力とレポート生成",
+      "files": [
+        {
+          "path": "src/exporters/__init__.py",
+          "role": "exportersモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/exporters/base_exporter.py",
+          "role": "出力機能の基底クラス",
+          "dependencies": ["src/exporters/__init__.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/exporters/json_exporter.py",
+          "role": "JSON形式での結果出力",
+          "dependencies": ["src/exporters/base_exporter.py", "src/models/calculation_result.py"],
+          "priority": "medium"
+        },
+        {
+          "path": "src/exporters/excel_exporter.py",
+          "role": "Excel形式での結果出力",
+          "dependencies": ["src/exporters/base_exporter.py", "src/models/calculation_result.py"],
+          "priority": "high"
+        },
+        {
+          "path": "src/exporters/pdf_exporter.py",
+          "role": "PDF形式での計算書生成",
+          "dependencies": ["src/exporters/base_exporter.py", "src/models/calculation_result.py"],
+          "priority": "medium"
+        },
+        {
+          "path": "src/exporters/report_generator.py",
+          "role": "わかりやすい日本語レポートの生成",
+          "dependencies": ["src/exporters/excel_exporter.py", "src/exporters/pdf_exporter.py"],
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "phase": 7,
+      "name": "ユーザーインターフェース開発",
+      "description": "非専門家でも使いやすいUI",
+      "files": [
+        {
+          "path": "src/ui/__init__.py",
+          "role": "uiモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "src/ui/cli.py",
+          "role": "コマンドラインインターフェース",
+          "dependencies": [
+            "src/parsers/parser_factory.py",
+            "src/calculators/calculation_engine.py",
+            "src/exporters/report_generator.py"
+          ],
+          "priority": "high"
+        },
+        {
+          "path": "src/ui/gui.py",
+          "role": "グラフィカルユーザーインターフェース（Tkinter等）",
+          "dependencies": [
+            "src/parsers/parser_factory.py",
+            "src/calculators/calculation_engine.py",
+            "src/exporters/report_generator.py"
+          ],
+          "priority": "medium"
+        },
+        {
+          "path": "src/ui/web_app.py",
+          "role": "Webアプリケーション（Flask/FastAPI）",
+          "dependencies": [
+            "src/parsers/parser_factory.py",
+            "src/calculators/calculation_engine.py",
+            "src/exporters/report_generator.py"
+          ],
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "phase": 8,
+      "name": "ドキュメントとヘルプ",
+      "description": "非専門家向けの説明資料",
+      "files": [
+        {
+          "path": "docs/user_guide.md",
+          "role": "ユーザーガイド（使用方法の説明）",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "docs/calculation_methods.md",
+          "role": "構造計算手法の説明（数式と解説）",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "docs/input_format.md",
+          "role": "入力データ形式の説明",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "docs/examples.md",
+          "role": "使用例とサンプルデータの説明",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "docs/api_reference.md",
+          "role": "API リファレンス（開発者向け）",
+          "dependencies": [],
+          "priority": "low"
+        },
+        {
+          "path": "src/utils/__init__.py",
+          "role": "utilsモジュールの初期化",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "src/utils/helper_functions.py",
+          "role": "共通のヘルパー関数（単位変換、フォーマット等）",
+          "dependencies": ["src/utils/__init__.py"],
+          "priority": "medium"
+        },
+        {
+          "path": "src/utils/logger.py",
+          "role": "ログ出力の設定と管理",
+          "dependencies": ["src/utils/__init__.py"],
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "phase": 9,
+      "name": "テストとサンプルデータ",
+      "description": "品質保証と使用例",
+      "files": [
+        {
+          "path": "tests/__init__.py",
+          "role": "testsモジュールの初期化",
+          "dependencies": [],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_models.py",
+          "role": "データモデルのユニットテスト",
+          "dependencies": ["src/models/material.py", "src/models/design.py", "src/models/structure.py"],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_parsers.py",
+          "role": "パーサーのユニットテスト",
+          "dependencies": ["src/parsers/spreadsheet_parser.py", "src/parsers/magic_sp_parser.py"],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_validators.py",
+          "role": "検証機能のユニットテスト",
+          "dependencies": ["src/validators/material_validator.py", "src/validators/design_validator.py"],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_calculators.py",
+          "role": "計算機のユニットテスト",
+          "dependencies": ["src/calculators/stress_calculator.py", "src/calculators/deformation_calculator.py"],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_exporters.py",
+          "role": "出力機能のユニットテスト",
+          "dependencies": ["src/exporters/excel_exporter.py", "src/exporters/json_exporter.py"],
+          "priority": "high"
+        },
+        {
+          "path": "tests/test_integration.py",
+          "role": "統合テスト（エンドツーエンド）",
+          "dependencies": ["src/ui/cli.py", "src/calculators/calculation_engine.py"],
+          "priority": "medium"
+        },
+        {
+          "path": "data/samples/sample_materials.xlsx",
+          "role": "材料情報のサンプルデータ（Excel形式）",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "data/samples/sample_design.xlsx",
+          "role": "設計図のサンプルデータ（Excel形式）",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "data/samples/sample_magic_sp.txt",
+          "role": "マジックSP形式のサンプルデータ",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "data/templates/material_template.xlsx",
+          "role": "材料情報入力用のテンプレート",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "data/templates/design_template.xlsx",
+          "role": "設計図入力用のテンプレート",
+          "dependencies": [],
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "phase": 10,
+      "name": "メインアプリケーション",
+      "description": "アプリケーションのエントリーポイント",
+      "files": [
+        {
+          "path": "main.py",
+          "role": "アプリケーションのメインエントリーポイント",
+          "dependencies": [
+            "src/ui/cli.py",
+            "config/settings.py"
+          ],
+          "priority": "high"
+        },
+        {
+          "path": ".gitignore",
+          "role": "Gitで管理しないファイルの指定",
+          "dependencies": [],
+          "priority": "medium"
+        },
+        {
+          "path": "Dockerfile",
+          "role": "Docker コンテナ化の設定（オプション）",
+          "dependencies": ["requirements.txt"],
+          "priority": "low"
+        },
+        {
+          "path": "docker-compose.yml",
+          "role": "Docker Compose設定（オプション）",
+          "dependencies": ["Dockerfile"],
+          "priority": "low"
+        }
+      ]
+    }
+  ],
+  "implementation_order": [
+    "Phase 1: プロジェクト基盤構築",
+    "Phase 2: データモデル定義",
+    "Phase 3: データ入力パーサー開発",
+    "Phase 4: データ検証機能開発",
+    "Phase 5: 構造計算エンジン開発",
+    "Phase 6: 結果出力機能開発",
+    "Phase 7: ユーザーインターフェース開発",
+    "Phase 8: ドキュメントとヘルプ",
+    "Phase 9: テストとサンプルデータ",
+    "Phase 10: メインアプリケーション"
+  ],
+  "directory_structure": {
+    "root": "/workspace",
+    "structure": {
+      "config/": "設定ファイル",
+      "src/": "ソースコード",
+      "src/models/": "データモデル",
+      "src/parsers/": "入力データパーサー",
+      "src/validators/": "データ検証",
+      "src/calculators/": "構造計算エンジン",
+      "src/exporters/": "結果出力",
+      "src/ui/": "ユーザーインターフェース",
+      "src/utils/": "ユーティリティ関数",
+      "docs/": "ドキュメント",
+      "tests/": "テストコード",
+      "data/samples/": "サンプルデータ",
+      "data/templates/": "入力テンプレート"
+    }
+  },
+  "key_dependencies": {
+    "external_libraries": [
+      "pandas: スプレッドシートデータの読み込みと処理",
+      "openpyxl: Excel ファイルの読み書き",
+      "numpy: 数値計算",
+      "scipy: 科学計算",
+      "pytest: テストフレームワーク",
+      "reportlab: PDF生成（オプション）",
+      "tkinter: GUI開発（標準ライブラリ）",
+      "flask/fastapi: Webアプリケーション（オプション）"
+    ],
+    "internal_dependencies": {
+      "データモデル": "すべてのモジュールで使用される基本",
+      "パーサー": "データモデルに依存",
+      "検証機能": "データモデルに依存",
+      "計算エンジン": "データモデル、検証機能に依存",
+      "出力機能": "データモデル、計算結果に依存",
+      "UI": "パーサー、計算エンジン、出力機能に依存"
+    }
+  },
+  "critical_success_factors": [
+    "非専門家でも理解できるわかりやすいドキュメント",
+    "直感的なユーザーインターフェース",
+    "明確な構造計算手法の説明",
+    "詳細なエラーメッセージと入力ガイド",
+    "豊富なサンプルデータと使用例",
+    "段階的な計算プロセスの可視化"
+  ],
+  "notes": [
+    "各フェーズは順番に実装することを推奨",
+    "Phase 1-2は必須の基盤部分",
+    "Phase 3-6がコア機能",
+    "Phase 7でユーザビリティを向上",
+    "Phase 8でドキュメント整備",
+    "Phase 9-10で品質保証と統合",
+    "優先度が'high'のファイルから実装を開始"
+  ]
+}
