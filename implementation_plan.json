@@ -1,0 +1,455 @@
+{
+  "project_name": "構造計算プログラム",
+  "description": "設計図と材料データを基にした構造計算システム",
+  "implementation_plan": {
+    "phases": [
+      {
+        "phase_number": 1,
+        "phase_name": "プロジェクト基盤構築",
+        "description": "基本的なプロジェクト構造とユーティリティの実装",
+        "files": [
+          {
+            "file_path": "requirements.txt",
+            "role": "必要なPythonパッケージの依存関係を定義",
+            "content_description": "pandas, openpyxl, PyPDF2, ezdxf（DWG読み込み用）などのライブラリを記載",
+            "dependencies": []
+          },
+          {
+            "file_path": "config/settings.py",
+            "role": "アプリケーション全体の設定を管理",
+            "content_description": "ファイルパス、データ形式、計算パラメータなどの設定値",
+            "dependencies": []
+          },
+          {
+            "file_path": "config/__init__.py",
+            "role": "configパッケージの初期化",
+            "content_description": "パッケージとして認識させるための空ファイルまたは設定のエクスポート",
+            "dependencies": []
+          },
+          {
+            "file_path": "utils/logger.py",
+            "role": "ログ管理ユーティリティ",
+            "content_description": "アプリケーション全体のログ記録機能を提供",
+            "dependencies": []
+          },
+          {
+            "file_path": "utils/file_handler.py",
+            "role": "ファイル操作の共通ユーティリティ",
+            "content_description": "ファイルの存在チェック、パス処理などの共通機能",
+            "dependencies": ["utils/logger.py"]
+          },
+          {
+            "file_path": "utils/__init__.py",
+            "role": "utilsパッケージの初期化",
+            "content_description": "パッケージとして認識させるためのファイル",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 2,
+        "phase_name": "データモデル定義",
+        "description": "材料データ、設計図情報などのデータ構造を定義",
+        "files": [
+          {
+            "file_path": "models/material.py",
+            "role": "材料データのデータモデル",
+            "content_description": "材料名、単位重量、コスト、強度特性などを保持するクラス",
+            "dependencies": []
+          },
+          {
+            "file_path": "models/design_drawing.py",
+            "role": "設計図データのデータモデル",
+            "content_description": "設計図のメタデータ、ファイルパス、図面情報を保持するクラス",
+            "dependencies": []
+          },
+          {
+            "file_path": "models/calculation_result.py",
+            "role": "計算結果のデータモデル",
+            "content_description": "構造計算の結果を保持するクラス",
+            "dependencies": []
+          },
+          {
+            "file_path": "models/__init__.py",
+            "role": "modelsパッケージの初期化",
+            "content_description": "データモデルクラスのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 3,
+        "phase_name": "設計図入力モジュール",
+        "description": "PDF、DWG形式の設計図を読み込む機能を実装",
+        "files": [
+          {
+            "file_path": "modules/drawing_input/pdf_reader.py",
+            "role": "PDF形式の設計図を読み込む",
+            "content_description": "PyPDF2を使用してPDFファイルからデータを抽出",
+            "dependencies": [
+              "models/design_drawing.py",
+              "utils/logger.py",
+              "utils/file_handler.py"
+            ]
+          },
+          {
+            "file_path": "modules/drawing_input/dwg_reader.py",
+            "role": "DWG形式の設計図を読み込む",
+            "content_description": "ezdxfライブラリを使用してDWGファイルからデータを抽出",
+            "dependencies": [
+              "models/design_drawing.py",
+              "utils/logger.py",
+              "utils/file_handler.py"
+            ]
+          },
+          {
+            "file_path": "modules/drawing_input/drawing_manager.py",
+            "role": "複数の設計図を統合管理",
+            "content_description": "複数の設計図を一元管理し、形式に応じて適切なリーダーを選択",
+            "dependencies": [
+              "modules/drawing_input/pdf_reader.py",
+              "modules/drawing_input/dwg_reader.py",
+              "models/design_drawing.py"
+            ]
+          },
+          {
+            "file_path": "modules/drawing_input/__init__.py",
+            "role": "drawing_inputパッケージの初期化",
+            "content_description": "設計図入力モジュールのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 4,
+        "phase_name": "材料データ管理モジュール",
+        "description": "スプレッドシート形式の材料データを管理",
+        "files": [
+          {
+            "file_path": "modules/material_data/spreadsheet_reader.py",
+            "role": "Excel/CSV形式の材料データを読み込む",
+            "content_description": "pandasとopenpyxlを使用してスプレッドシートからデータを取得",
+            "dependencies": [
+              "models/material.py",
+              "utils/logger.py",
+              "utils/file_handler.py"
+            ]
+          },
+          {
+            "file_path": "modules/material_data/material_database.py",
+            "role": "材料データベースの管理",
+            "content_description": "材料データのCRUD操作、検索、フィルタリング機能を提供",
+            "dependencies": [
+              "models/material.py",
+              "modules/material_data/spreadsheet_reader.py",
+              "utils/logger.py"
+            ]
+          },
+          {
+            "file_path": "modules/material_data/second_sheet_sync.py",
+            "role": "セコンドシートとの連携機能",
+            "content_description": "セコンドシートの更新を検知し、材料データに反映",
+            "dependencies": [
+              "modules/material_data/spreadsheet_reader.py",
+              "modules/material_data/material_database.py"
+            ]
+          },
+          {
+            "file_path": "modules/material_data/__init__.py",
+            "role": "material_dataパッケージの初期化",
+            "content_description": "材料データモジュールのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 5,
+        "phase_name": "データ紐付けモジュール",
+        "description": "設計図と材料データを関連付ける",
+        "files": [
+          {
+            "file_path": "modules/data_binding/binding_engine.py",
+            "role": "設計図と材料データの紐付けロジック",
+            "content_description": "設計図に記載された材料情報を材料データベースとマッチング",
+            "dependencies": [
+              "models/design_drawing.py",
+              "models/material.py",
+              "modules/material_data/material_database.py",
+              "utils/logger.py"
+            ]
+          },
+          {
+            "file_path": "modules/data_binding/__init__.py",
+            "role": "data_bindingパッケージの初期化",
+            "content_description": "データ紐付けモジュールのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 6,
+        "phase_name": "構造計算エンジン",
+        "description": "実際の構造計算処理を実装",
+        "files": [
+          {
+            "file_path": "modules/calculation/structural_calculator.py",
+            "role": "構造計算のメインロジック",
+            "content_description": "設計図と材料データに基づいた構造計算アルゴリズムの実装",
+            "dependencies": [
+              "models/design_drawing.py",
+              "models/material.py",
+              "models/calculation_result.py",
+              "utils/logger.py"
+            ]
+          },
+          {
+            "file_path": "modules/calculation/formula_library.py",
+            "role": "計算式ライブラリ",
+            "content_description": "構造計算に使用する各種計算式を定義",
+            "dependencies": []
+          },
+          {
+            "file_path": "modules/calculation/__init__.py",
+            "role": "calculationパッケージの初期化",
+            "content_description": "計算モジュールのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 7,
+        "phase_name": "結果出力モジュール",
+        "description": "計算結果を様々な形式で出力",
+        "files": [
+          {
+            "file_path": "modules/output/report_generator.py",
+            "role": "計算結果レポートの生成",
+            "content_description": "計算結果をPDF、Excel、HTMLなどの形式で出力",
+            "dependencies": [
+              "models/calculation_result.py",
+              "utils/logger.py",
+              "utils/file_handler.py"
+            ]
+          },
+          {
+            "file_path": "modules/output/export_manager.py",
+            "role": "エクスポート機能の管理",
+            "content_description": "出力形式の選択、ファイル保存の管理",
+            "dependencies": [
+              "modules/output/report_generator.py"
+            ]
+          },
+          {
+            "file_path": "modules/output/__init__.py",
+            "role": "outputパッケージの初期化",
+            "content_description": "出力モジュールのエクスポート",
+            "dependencies": []
+          }
+        ]
+      },
+      {
+        "phase_number": 8,
+        "phase_name": "メインアプリケーション",
+        "description": "全モジュールを統合したメインプログラム",
+        "files": [
+          {
+            "file_path": "main.py",
+            "role": "アプリケーションのエントリーポイント",
+            "content_description": "コマンドライン引数の処理、全モジュールの初期化と実行フロー管理",
+            "dependencies": [
+              "config/settings.py",
+              "modules/drawing_input/drawing_manager.py",
+              "modules/material_data/material_database.py",
+              "modules/data_binding/binding_engine.py",
+              "modules/calculation/structural_calculator.py",
+              "modules/output/export_manager.py",
+              "utils/logger.py"
+            ]
+          },
+          {
+            "file_path": "app.py",
+            "role": "アプリケーションの統合制御",
+            "content_description": "各モジュール間の連携を管理し、処理フローを制御",
+            "dependencies": [
+              "main.py",
+              "config/settings.py",
+              "modules/drawing_input/drawing_manager.py",
+              "modules/material_data/material_database.py",
+              "modules/data_binding/binding_engine.py",
+              "modules/calculation/structural_calculator.py",
+              "modules/output/export_manager.py"
+            ]
+          }
+        ]
+      },
+      {
+        "phase_number": 9,
+        "phase_name": "テストとドキュメント",
+        "description": "ユニットテスト、統合テスト、ドキュメント作成",
+        "files": [
+          {
+            "file_path": "tests/test_material.py",
+            "role": "材料データモジュールのテスト",
+            "content_description": "pytest使用した材料データ管理機能のユニットテスト",
+            "dependencies": [
+              "models/material.py",
+              "modules/material_data/material_database.py"
+            ]
+          },
+          {
+            "file_path": "tests/test_drawing_input.py",
+            "role": "設計図入力モジュールのテスト",
+            "content_description": "設計図読み込み機能のユニットテスト",
+            "dependencies": [
+              "modules/drawing_input/pdf_reader.py",
+              "modules/drawing_input/dwg_reader.py"
+            ]
+          },
+          {
+            "file_path": "tests/test_calculation.py",
+            "role": "構造計算モジュールのテスト",
+            "content_description": "構造計算ロジックのユニットテスト",
+            "dependencies": [
+              "modules/calculation/structural_calculator.py",
+              "modules/calculation/formula_library.py"
+            ]
+          },
+          {
+            "file_path": "tests/test_integration.py",
+            "role": "統合テスト",
+            "content_description": "全モジュールを統合した処理フローのテスト",
+            "dependencies": [
+              "app.py",
+              "main.py"
+            ]
+          },
+          {
+            "file_path": "tests/__init__.py",
+            "role": "testsパッケージの初期化",
+            "content_description": "テストパッケージの初期化",
+            "dependencies": []
+          },
+          {
+            "file_path": "README.md",
+            "role": "プロジェクトのドキュメント",
+            "content_description": "プロジェクトの概要、インストール方法、使用方法を記載",
+            "dependencies": []
+          },
+          {
+            "file_path": ".gitignore",
+            "role": "Gitで無視するファイルの指定",
+            "content_description": "__pycache__、venv、データファイルなどを除外",
+            "dependencies": []
+          }
+        ]
+      }
+    ],
+    "directory_structure": {
+      "root": "/workspace",
+      "folders": [
+        "config",
+        "models",
+        "modules/drawing_input",
+        "modules/material_data",
+        "modules/data_binding",
+        "modules/calculation",
+        "modules/output",
+        "utils",
+        "tests",
+        "data/design_drawings",
+        "data/material_sheets",
+        "data/results",
+        "etc/tmp"
+      ]
+    },
+    "implementation_order": [
+      {
+        "step": 1,
+        "phase": "プロジェクト基盤構築",
+        "description": "基本構造とユーティリティを最初に実装",
+        "reason": "他のモジュールが依存する共通機能を提供"
+      },
+      {
+        "step": 2,
+        "phase": "データモデル定義",
+        "description": "データ構造を定義",
+        "reason": "全モジュールがこれらのデータモデルを使用"
+      },
+      {
+        "step": 3,
+        "phase": "設計図入力モジュール",
+        "description": "設計図の読み込み機能を実装",
+        "reason": "入力データの取得が最優先"
+      },
+      {
+        "step": 4,
+        "phase": "材料データ管理モジュール",
+        "description": "材料データの管理機能を実装",
+        "reason": "設計図と並行して必要な入力データ"
+      },
+      {
+        "step": 5,
+        "phase": "データ紐付けモジュール",
+        "description": "設計図と材料データの関連付け",
+        "reason": "入力データが揃った後に紐付けを実装"
+      },
+      {
+        "step": 6,
+        "phase": "構造計算エンジン",
+        "description": "計算ロジックの実装",
+        "reason": "紐付けされたデータを使用して計算を実行"
+      },
+      {
+        "step": 7,
+        "phase": "結果出力モジュール",
+        "description": "計算結果の出力機能を実装",
+        "reason": "計算結果を受け取って出力"
+      },
+      {
+        "step": 8,
+        "phase": "メインアプリケーション",
+        "description": "全モジュールを統合",
+        "reason": "全機能が揃った後に統合"
+      },
+      {
+        "step": 9,
+        "phase": "テストとドキュメント",
+        "description": "テストとドキュメント作成",
+        "reason": "実装完了後にテストとドキュメント化"
+      }
+    ],
+    "dependencies_summary": {
+      "external_libraries": [
+        "pandas - スプレッドシートデータの処理",
+        "openpyxl - Excel形式の読み書き",
+        "PyPDF2 - PDFファイルの読み込み",
+        "ezdxf - DWG/DXFファイルの読み込み",
+        "pytest - ユニットテストフレームワーク",
+        "reportlab - PDFレポート生成",
+        "jinja2 - HTMLテンプレート処理"
+      ],
+      "internal_dependencies": {
+        "layer_1": ["config", "utils"],
+        "layer_2": ["models"],
+        "layer_3": ["modules/drawing_input", "modules/material_data"],
+        "layer_4": ["modules/data_binding"],
+        "layer_5": ["modules/calculation"],
+        "layer_6": ["modules/output"],
+        "layer_7": ["app", "main"]
+      }
+    },
+    "total_files": 42,
+    "estimated_development_time": {
+      "phase_1": "3-5日",
+      "phase_2": "2-3日",
+      "phase_3": "5-7日",
+      "phase_4": "5-7日",
+      "phase_5": "3-5日",
+      "phase_6": "10-14日",
+      "phase_7": "5-7日",
+      "phase_8": "3-5日",
+      "phase_9": "7-10日",
+      "total": "43-63日（約2-3ヶ月）"
+    }
+  }
+}
