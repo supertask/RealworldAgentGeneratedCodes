@@ -1,0 +1,387 @@
+{
+  "project_name": "構造計算プログラム",
+  "description": "非専門家でも理解しやすい構造計算システム",
+  "implementation_plan": {
+    "phases": [
+      {
+        "phase": 1,
+        "name": "プロジェクト基盤構築",
+        "files": [
+          {
+            "path": "requirements.txt",
+            "role": "Pythonパッケージの依存関係管理。pandas、openpyxl、numpy等を含む",
+            "dependencies": [],
+            "priority": "critical"
+          },
+          {
+            "path": "README.md",
+            "role": "プロジェクト概要、セットアップ手順、使用方法の説明",
+            "dependencies": [],
+            "priority": "high"
+          },
+          {
+            "path": "config/settings.py",
+            "role": "アプリケーション全体の設定管理（計算精度、デフォルト値等）",
+            "dependencies": [],
+            "priority": "high"
+          },
+          {
+            "path": ".gitignore",
+            "role": "Git管理から除外するファイルの指定",
+            "dependencies": [],
+            "priority": "medium"
+          }
+        ]
+      },
+      {
+        "phase": 2,
+        "name": "データモデル定義",
+        "files": [
+          {
+            "path": "src/models/material.py",
+            "role": "材料情報のデータモデル（強度、弾性係数、密度等）",
+            "dependencies": [],
+            "priority": "critical"
+          },
+          {
+            "path": "src/models/design.py",
+            "role": "設計図のデータモデル（寸法、形状、荷重条件等）",
+            "dependencies": ["src/models/material.py"],
+            "priority": "critical"
+          },
+          {
+            "path": "src/models/validation.py",
+            "role": "入力データのバリデーションルール",
+            "dependencies": [
+              "src/models/material.py",
+              "src/models/design.py"
+            ],
+            "priority": "high"
+          },
+          {
+            "path": "src/models/__init__.py",
+            "role": "modelsパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 3,
+        "name": "データ入力処理",
+        "files": [
+          {
+            "path": "src/io/spreadsheet_loader.py",
+            "role": "スプレッドシート形式（Excel、CSV）からのデータ読み込み",
+            "dependencies": [
+              "src/models/material.py",
+              "src/models/design.py"
+            ],
+            "priority": "critical"
+          },
+          {
+            "path": "src/io/magic_sp_loader.py",
+            "role": "マジックSP形式からのデータ読み込み（カスタムパーサー）",
+            "dependencies": [
+              "src/models/material.py",
+              "src/models/design.py"
+            ],
+            "priority": "high"
+          },
+          {
+            "path": "src/io/data_converter.py",
+            "role": "異なる入力形式間のデータ変換・正規化",
+            "dependencies": [
+              "src/io/spreadsheet_loader.py",
+              "src/io/magic_sp_loader.py"
+            ],
+            "priority": "medium"
+          },
+          {
+            "path": "src/io/__init__.py",
+            "role": "ioパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 4,
+        "name": "構造計算エンジン",
+        "files": [
+          {
+            "path": "src/calculator/structural_analysis.py",
+            "role": "構造解析の主要ロジック（応力、変形計算）",
+            "dependencies": [
+              "src/models/material.py",
+              "src/models/design.py"
+            ],
+            "priority": "critical"
+          },
+          {
+            "path": "src/calculator/load_calculator.py",
+            "role": "荷重計算（固定荷重、積載荷重、風荷重、地震荷重）",
+            "dependencies": ["src/models/design.py"],
+            "priority": "critical"
+          },
+          {
+            "path": "src/calculator/safety_verification.py",
+            "role": "安全性検証（許容応力度、断面検定）",
+            "dependencies": [
+              "src/calculator/structural_analysis.py",
+              "src/models/material.py"
+            ],
+            "priority": "critical"
+          },
+          {
+            "path": "src/calculator/formula_library.py",
+            "role": "構造計算式ライブラリ（分かりやすいコメント付き）",
+            "dependencies": [],
+            "priority": "high"
+          },
+          {
+            "path": "src/calculator/__init__.py",
+            "role": "calculatorパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 5,
+        "name": "レポート生成",
+        "files": [
+          {
+            "path": "src/report/report_generator.py",
+            "role": "計算結果のレポート生成（PDF、HTML、Excel）",
+            "dependencies": [
+              "src/calculator/structural_analysis.py",
+              "src/calculator/safety_verification.py"
+            ],
+            "priority": "high"
+          },
+          {
+            "path": "src/report/visualization.py",
+            "role": "構造図、応力図、変形図の可視化",
+            "dependencies": [
+              "src/calculator/structural_analysis.py",
+              "src/models/design.py"
+            ],
+            "priority": "medium"
+          },
+          {
+            "path": "src/report/templates/",
+            "role": "レポートテンプレートディレクトリ（HTML、CSS）",
+            "dependencies": [],
+            "priority": "medium"
+          },
+          {
+            "path": "src/report/__init__.py",
+            "role": "reportパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 6,
+        "name": "ユーザーインターフェース",
+        "files": [
+          {
+            "path": "src/ui/cli.py",
+            "role": "コマンドラインインターフェース（基本操作用）",
+            "dependencies": [
+              "src/io/spreadsheet_loader.py",
+              "src/io/magic_sp_loader.py",
+              "src/calculator/structural_analysis.py",
+              "src/report/report_generator.py"
+            ],
+            "priority": "high"
+          },
+          {
+            "path": "src/ui/gui.py",
+            "role": "グラフィカルユーザーインターフェース（Tkinter/PyQt使用）",
+            "dependencies": [
+              "src/ui/cli.py"
+            ],
+            "priority": "medium"
+          },
+          {
+            "path": "src/ui/__init__.py",
+            "role": "uiパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 7,
+        "name": "テストとドキュメント",
+        "files": [
+          {
+            "path": "tests/test_models.py",
+            "role": "データモデルの単体テスト",
+            "dependencies": ["src/models/"],
+            "priority": "high"
+          },
+          {
+            "path": "tests/test_io.py",
+            "role": "データ入力処理の単体テスト",
+            "dependencies": ["src/io/"],
+            "priority": "high"
+          },
+          {
+            "path": "tests/test_calculator.py",
+            "role": "構造計算エンジンの単体テスト",
+            "dependencies": ["src/calculator/"],
+            "priority": "critical"
+          },
+          {
+            "path": "tests/test_integration.py",
+            "role": "統合テスト（エンドツーエンド）",
+            "dependencies": ["src/"],
+            "priority": "high"
+          },
+          {
+            "path": "tests/fixtures/",
+            "role": "テスト用サンプルデータディレクトリ",
+            "dependencies": [],
+            "priority": "high"
+          },
+          {
+            "path": "docs/user_guide.md",
+            "role": "ユーザーガイド（使用方法、サンプル）",
+            "dependencies": [],
+            "priority": "medium"
+          },
+          {
+            "path": "docs/technical_spec.md",
+            "role": "技術仕様書（計算式、アルゴリズム説明）",
+            "dependencies": [],
+            "priority": "medium"
+          },
+          {
+            "path": "docs/api_reference.md",
+            "role": "API リファレンス（開発者向け）",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      },
+      {
+        "phase": 8,
+        "name": "メインエントリーポイント",
+        "files": [
+          {
+            "path": "main.py",
+            "role": "アプリケーションのメインエントリーポイント",
+            "dependencies": [
+              "src/ui/cli.py",
+              "src/ui/gui.py"
+            ],
+            "priority": "high"
+          },
+          {
+            "path": "src/__init__.py",
+            "role": "srcパッケージの初期化",
+            "dependencies": [],
+            "priority": "low"
+          }
+        ]
+      }
+    ],
+    "implementation_order": [
+      {
+        "step": 1,
+        "phase": 1,
+        "description": "プロジェクト基盤構築：依存関係と設定ファイルの作成",
+        "estimated_time": "1-2時間"
+      },
+      {
+        "step": 2,
+        "phase": 2,
+        "description": "データモデル定義：材料と設計図のクラス設計",
+        "estimated_time": "3-4時間"
+      },
+      {
+        "step": 3,
+        "phase": 3,
+        "description": "データ入力処理：各形式のローダー実装",
+        "estimated_time": "4-6時間"
+      },
+      {
+        "step": 4,
+        "phase": 4,
+        "description": "構造計算エンジン：計算ロジックの実装（最重要）",
+        "estimated_time": "10-15時間"
+      },
+      {
+        "step": 5,
+        "phase": 5,
+        "description": "レポート生成：結果の可視化と出力",
+        "estimated_time": "4-6時間"
+      },
+      {
+        "step": 6,
+        "phase": 6,
+        "description": "ユーザーインターフェース：CLI/GUIの実装",
+        "estimated_time": "4-6時間"
+      },
+      {
+        "step": 7,
+        "phase": 7,
+        "description": "テストとドキュメント：品質保証と説明資料",
+        "estimated_time": "6-8時間"
+      },
+      {
+        "step": 8,
+        "phase": 8,
+        "description": "統合とデプロイ：全体の統合と最終調整",
+        "estimated_time": "2-3時間"
+      }
+    ],
+    "directory_structure": {
+      "/workspace": {
+        "src/": {
+          "models/": "データモデル定義",
+          "io/": "データ入出力処理",
+          "calculator/": "構造計算エンジン",
+          "report/": "レポート生成",
+          "ui/": "ユーザーインターフェース"
+        },
+        "tests/": "テストコード",
+        "docs/": "ドキュメント",
+        "config/": "設定ファイル",
+        "data/": "サンプルデータ（実行時生成）",
+        "etc/tmp/": "一時ファイル保存用"
+      }
+    },
+    "key_dependencies": {
+      "external_libraries": [
+        "pandas: データ処理",
+        "numpy: 数値計算",
+        "openpyxl: Excelファイル処理",
+        "matplotlib: グラフ描画",
+        "reportlab: PDFレポート生成",
+        "click: CLIフレームワーク",
+        "pytest: テストフレームワーク"
+      ],
+      "internal_dependencies_flow": [
+        "models → io → calculator → report → ui → main"
+      ]
+    },
+    "design_principles": [
+      "非専門家でも理解できるコメント・ドキュメント",
+      "計算式には数学的根拠と建築基準の参照を明記",
+      "モジュール間の依存を最小化",
+      "テストカバレッジ80%以上を目指す",
+      "エラーメッセージは分かりやすく日本語で表示"
+    ]
+  },
+  "notes": {
+    "スプレッドシート形式": "Excel (.xlsx)、CSV (.csv) に対応",
+    "マジックSP形式": "詳細仕様が必要な場合は追加で確認が必要",
+    "構造計算の範囲": "具体的な計算範囲（RC造、鉄骨造、木造等）の明確化が必要",
+    "建築基準": "適用する建築基準法・告示の年度を明確にする"
+  }
+}
